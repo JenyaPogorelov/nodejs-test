@@ -17,23 +17,19 @@ htmlGen = function htmlGen(obj) {
     teg = _getTeg(obj.name)
     elements = `<${teg} id=${obj.id}>${htmlGen(obj.children)}</${teg}>`
   } else {
-    for (let key in obj) {
-      if (key === 'name') teg = _getTeg(obj[key])
-      if (key === 'children' && obj[key].length !== 0) {
-        obj[key].forEach((element, id) => {
-          // console.log('element', id)
-          // elChildren += `<${teg} id=${obj.id}>${htmlGen(element)}</${teg}>`;
-          elements = `<${teg} id=${obj.id}>${htmlGen(obj[key][id])}</${teg}>`;
-          // console.log('elChildren', elChildren)
-        })
-        return elements;
-        // elements = `<${teg} id=${obj.id}>${htmlGen(obj[key][0])}</${teg}>`;
-      } else if (key === 'children' && obj[key].length === 0) {
-        return `<${teg} id=${obj.id}></${teg}>`;
-      }
-    }
+      obj.forEach(element => {
+        for (let key in element) {
+          if (key === 'name') teg = _getTeg(element[key])
+          if (key === 'children' && element[key].length !== 0) {
+            elements += `<${teg} id=${element.id}>${htmlGen(element.children)}</${teg}>`;
+          } else if (key === 'children' && element[key].length === 0) {
+            elements = `<${teg} id=${element.id}>${element.settings.text}</${teg}>`;
+          }
+        }
+      })
     return elements;
   }
+  return elements;
 }
 
 /**

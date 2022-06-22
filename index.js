@@ -4,12 +4,12 @@ const functions = require('./functions');
 fs.readFile('data.json', {encoding: 'utf8'}, (error, data) => {
   if (error) throw new Error('Ошибка, файл не найден');
   const base = JSON.parse(data);
-  // const htmlBody = functions.htmlGen(base)
-  console.log(functions.htmlGen(base));
+  const htmlBody = functions.htmlGen(base)
+  // console.log(functions.htmlGen(base));
   // functions.htmlGen(base)
   // parseObject(base);
 
-  fs.writeFile('index.html', data, (error) => {
+  fs.writeFile('index.html', htmlBody, (error) => {
     if (error) throw new Error('Ошибка записи в файл');
     console.log('Все Ок')
   })
