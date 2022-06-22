@@ -11,8 +11,6 @@
 htmlGen = function htmlGen(obj) {
   let elements = '';
   let teg = '';
-  let settings = '';
-  let elChildren = '';
   if (obj.name === 'root-element') {
     teg = _getTeg(obj.name)
     elements = `<${teg} id=${obj.id}>${htmlGen(obj.children)}</${teg}>`
@@ -52,18 +50,5 @@ function _getTeg(nameTeg) {
       return 'div'
   }
 }
-
-// _parseObject = function (obj) {
-//   let elements = '';
-//   if (obj.type === 'root-element') {
-//     elements = `<body id=${obj.id}>\n</body>`;
-//   } else {
-//     obj.forEach((element) => {
-//       elements += `<${element.name} id=${element.id}></${element.name}>`;
-//     })
-//     // return `<${obj.name} id=${obj.id}></${obj.name}>`;
-//   }
-//   return elements
-// }
 
 module.exports.htmlGen = htmlGen;
