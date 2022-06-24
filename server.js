@@ -7,7 +7,6 @@ app.use(fileUpload({}));
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-
   res.setHeader('content-type', 'text/html; charset=utf-8');
   res.write('<form action="/upload" method="POST" enctype="multipart/form-data" >');
   res.write('<input type="file" name="fileJSON">');
@@ -17,10 +16,8 @@ app.get('/', function (req, res) {
 })
 
 app.post('/upload', function(req, res) {
-  // console.log('req.files', req.files);
-  console.log(index.parseJSON(req.files.fileJSON))
   req.files.fileJSON.mv('public/files/'+req.files.fileJSON.name);
-  res.end(req.files.fileJSON.data);
+  res.end(`${index.parseJSON(req.files.fileJSON)} ` + req.files.fileJSON.data);
   console.log(req.files.fileJSON); // the uploaded file object
 });
 
@@ -31,5 +28,3 @@ let server = app.listen(8081, function () {
   console.log("Example app listening at http://%s:%s", host, port);
 
 });
-
-//https://dmitrytinitilov.gitbooks.io/strange-javascript/content/express/file_uploading_on_express.html

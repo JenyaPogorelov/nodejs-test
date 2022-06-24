@@ -9,18 +9,14 @@ const jsonFile = './data.json';
  */
 parseJSON = function parseJSON(JSONfile) {
   const nameFile = JSONfile.name.split('.json')[0];
-  console.log(nameFile);
-  // console.log(JSON.parse(JSONfile))
-  fs.readFile(jsonFile, {encoding: 'utf8'}, (error, data) => {
-  if (error) throw new Error('Ошибка, файл не найден');
-  const base = JSON.parse(data);
+  const dataFile = JSONfile.data;
+  const base = JSON.parse(dataFile);
   const htmlBody = functions.htmlGen(base);
 
-  fs.writeFile('data.html', htmlBody, (error) => {
+  fs.writeFile(`${nameFile}.html`, htmlBody, (error) => {
     if (error) throw new Error('Ошибка записи в файл');
     console.log('Все Ок');
   })
-});
 }
 
 
